@@ -1,0 +1,52 @@
+import sys
+sys.path.append('~/.virtualenvs/fbads/lib/python3.6/site-packages') # Replace this with the place you installed facebookbusiness using pip
+sys.path.append('~/.virtualenvs/fbads/lib/python3.6/site-packages/facebook_business-3.0.0-py2.7.egg-info') # same as above
+
+from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.ad import Ad
+from facebook_business.adobjects.campaign import Campaign
+from facebook_business.adobjects.adcreative import AdCreative
+from facebook_business.adobjects.adset import AdSet
+from facebook_business.adobjects.targeting import Targeting
+
+#my_app_id = '176563503656887'
+#my_app_secret = '2deafbb852358b22d10a09e78b99fae8'
+my_access_token = 'EAAaT9xnyHKABAOu5chjZCXRrozIPNZCh5pYZBSBk76baA4NGScUuZA26jMR8Hvhh4eQdOlU8MKqZCFmIx4YM9uI8MXQY7pR1EMZAPxqg7R5jj8tg1EyEqNlD6FyD3ll3YHP1CZBBMIKq9SmrHfVi0O1ZCgKond9dMWlk6ojprOaIRZAVY6RI6pTd1'
+FacebookAdsApi.init(access_token=my_access_token)
+adacc = 'act_977488068973371'
+my_account = AdAccount(adacc)
+allcam= [attr for attr in dir(Campaign.Field) if not callable(getattr(Campaign.Field, attr)) and not attr.startswith("__")]
+all =[attr for attr in dir(Ad.Field) if not callable(getattr(Ad.Field, attr)) and not attr.startswith("__")]
+campaigns = []
+fields = [attr for attr in dir(AdCreative.Field) if not callable(getattr(AdCreative.Field, attr)) and not attr.startswith("__")]
+ads = my_account.g
+print(ads)
+def adset(ads):
+	adsetID =[]
+	for i in range(0, len(ads)):
+		adsetID.append(ads[i][adset_id])
+	for x in adsetID:
+		adSet = AdSet(fbid=x)
+
+
+def creatives(ads):
+	fields = [attr for attr in dir(AdCreative.Field) if not callable(getattr(AdCreative.Field, attr)) and not attr.startswith("__")]
+	adcreativeID = []
+	adcreative = []
+	adc = []
+	for i in range(0, len(ads)):
+		adcreativeID.append(ads[i]["creative"]["id"])
+
+	for x in adcreativeID:
+		creative = AdCreative(x)
+		params = {
+ 			'thumbnail_width': 150,
+    			'thumbnail_height': 120,
+		}
+		adc.append(creative.get_AdCreatives(fields=fields, params=params))
+		adcreative.append(adc)
+	return adc
+
+
+

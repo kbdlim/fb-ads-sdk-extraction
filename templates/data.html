@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+	<body>
+		
+		{% for d in data%}
+			<table border="1">
+			<tr>
+			{% for keys in d[0].keys() %}
+				<th>{{keys}}</th>	
+			{%endfor%}
+			</tr>
+			{% for i in d%}
+				<tr>
+				{% for key in i %}
+					<td>{{ i[key] }} </td>	
+				{% endfor %}
+				</tr>
+			{%endfor%}
+			</table>
+			<hr>
+		{%endfor%}	
+	<body>
+</html>
